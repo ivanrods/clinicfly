@@ -1,14 +1,12 @@
 import User from '../../../shared/database/models/user.js';
+import { RegisterUserDTO } from '../dto/register-dto.js';
 
 class AuthRepository {
-  constructor() {
-    this.user = User;
+  async findUserByEmail(email: string) {
+    return User.findOne({ where: { email } });
   }
-  async findUserByEmail(email) {
-    return await this.user.findOne({ where: { email } });
-  }
-  async createUser(userData) {
-    return await this.user.create(userData);
+  async createUser(userData: RegisterUserDTO) {
+    return User.create(userData);
   }
 }
 
