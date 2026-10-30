@@ -1,5 +1,5 @@
-import User from '../../../shared/database/models/user.js';
-import { RegisterUserDTO } from '../dto/register-dto.js';
+import User from '../../../shared/database/models/user';
+import { RegisterUserDTO } from '../dto/register-dto';
 
 class AuthRepository {
   async findUserByEmail(email: string) {

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import AuthRepository from '../repository/auth-repository.js';
+import AuthRepository from '../repository/auth-repository';
 
 class authService {
   private authRepository: AuthRepository;
