@@ -6,7 +6,7 @@ class AuthRepository {
     return User.findOne({ where: { email } });
   }
   async createUser(userData: RegisterUserDTO) {
-    return User.create(userData);
+    return User.create(userData as any);
   }
 }
 
