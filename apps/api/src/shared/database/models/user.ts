@@ -2,12 +2,12 @@ import sequelize from '../../config/database';
 import { DataTypes, Model } from 'sequelize';
 
 class User extends Model {
-  public id!: number;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare id: number;
+  declare name: string;
+  declare email: string;
+  declare password: string;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 User.init(
