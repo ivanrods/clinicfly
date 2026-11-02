@@ -9,10 +9,7 @@ class authService {
     this.authRepository = new AuthRepository();
   }
   async login(email: string, password: string) {
-    const user = await this.authRepository.findUserByEmail({
-      email,
-      password,
-    } as any);
+    const user = await this.authRepository.findUserByEmail(email);
     if (!user) {
       throw new Error('User not found');
     }
@@ -33,10 +30,7 @@ class authService {
   }
 
   async register(name: string, email: string, password: string) {
-    const existingUser = await this.authRepository.findUserByEmail({
-      email,
-      password,
-    } as any);
+    const existingUser = await this.authRepository.findUserByEmail(email);
     if (existingUser) {
       throw new Error('User already exists');
     }
