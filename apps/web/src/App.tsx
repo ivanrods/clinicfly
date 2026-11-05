@@ -1,18 +1,15 @@
-import { Button, CssBaseline, Container, Typography } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginPage from './features/auth/pages/login-page';
+import RegisterPage from './features/auth/pages/register-page';
 
 function App() {
   return (
-    <>
-      <CssBaseline />
-      <Container maxWidth="sm" sx={{ marginTop: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          React + TypeScript + Material UI
-        </Typography>
-        <Button variant="contained" color="primary">
-          Meu Botão
-        </Button>
-      </Container>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
