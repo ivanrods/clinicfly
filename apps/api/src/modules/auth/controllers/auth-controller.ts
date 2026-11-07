@@ -6,10 +6,10 @@ class authController {
   async login(req: Request, res: Response) {
     try {
       const data = loginSchema.parse(req.body);
-      const token = await authService.login(data.email, data.password);
-      res.status(200).json({ token });
+      const result = await authService.login(data.email, data.password);
+      return res.status(200).json(result);
     } catch {
-      res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'E-mail ou senha inválidos' });
     }
   }
 

@@ -9,7 +9,9 @@ export function useLogin() {
     setLoading(true);
     setError(null);
     try {
-      await login(email, password);
+      const data = await login(email, password);
+      localStorage.setItem('token', data.token);
+      return data;
     } catch (err) {
       setError((err as Error).message);
     } finally {

@@ -26,7 +26,7 @@ class authService {
       secret || 'default_secret',
       { expiresIn: '1h' },
     );
-    return { user: { id: user.id, email: user.email }, token };
+    return { user: { id: user.id, name: user.name, email: user.email }, token };
   }
 
   async register(name: string, email: string, password: string) {
