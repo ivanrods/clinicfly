@@ -1,25 +1,18 @@
-import { useState } from 'react';
-import { register } from '../api/auth-api';
+import { useCallback } from 'react';
+import { authApi } from '../api/auth-api';
+import type { RegisterFormValues } from '../schemas/auth-schema';
+import type { RegisterResponse } from '../types/auth-types';
 
 export function useRegister() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const registerAccount = useCallback(
+    (values: RegisterFormValues): Promise<RegisterResponse> =>
+      authApi.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
+    [],
+  );
 
-  async function registerHandler(
-    name: string,
-    email: string,
-    password: string,
-  ) {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await register(name, email, password);
-      return data;
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  }
-  return { loading, error, registerHandler };
+  return { registerAccount };
 }

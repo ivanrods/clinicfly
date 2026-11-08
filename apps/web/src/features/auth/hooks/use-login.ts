@@ -1,22 +1,18 @@
-import { useState } from 'react';
-import { login } from '../api/auth-api';
+import { useCallback } from 'react';
+import { tokenStorage } from '../../../shared/lib/token-storage';
+import { authApi } from '../api/auth-api';
+import type { LoginFormValues } from '../schemas/auth-schema';
+import type { LoginResponse } from '../types/auth-types';
 
 export function useLogin() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function loginHandler(email: string, password: string) {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await login(email, password);
-      localStorage.setItem('token', data.token);
+  const login = useCallback(
+    async (values: LoginFormValues): Promise<LoginResponse> => {
+      const data = await authApi.login(values);
+      tokenStorage.set(data.token);
       return data;
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  }
-  return { loading, error, loginHandler };
+    },
+    [],
+  );
+
+  return { login };
 }

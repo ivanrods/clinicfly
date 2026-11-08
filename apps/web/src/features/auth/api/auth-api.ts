@@ -1,35 +1,19 @@
-const API_URL = 'http://localhost:3000/';
+import { api } from '../../../shared/api/client';
+import type {
+  LoginPayload,
+  LoginResponse,
+  RegisterPayload,
+  RegisterResponse,
+} from '../types/auth-types';
 
-export async function login(email: string, password: string): Promise<any> {
-  const response = await fetch(`${API_URL}login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  });
-  const data = await response.json();
+export const authApi = {
+  async login(payload: LoginPayload): Promise<LoginResponse> {
+    const { data } = await api.post<LoginResponse>('/login', payload);
+    return data;
+  },
 
-  if (!response.ok) {
-    throw new Error(data.message || 'Login failed');
-  }
-
-  return data;
-}
-
-export async function register(
-  name: string,
-  email: string,
-  password: string,
-): Promise<any> {
-  const response = await fetch(`${API_URL}register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, password }),
-  });
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Registration failed');
-  }
-
-  return data;
-}
+  async register(payload: RegisterPayload): Promise<RegisterResponse> {
+    const { data } = await api.post<RegisterResponse>('/register', payload);
+    return data;
+  },
+};
