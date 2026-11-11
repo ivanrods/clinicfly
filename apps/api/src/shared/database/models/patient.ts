@@ -1,16 +1,26 @@
 import sequelize from '../../config/database';
-import { DataTypes, Model } from 'sequelize';
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from 'sequelize';
+import type { Gender } from '../../../modules/patients/dto/create-patient-dto';
 
-class Patient extends Model {
-  declare id: number;
+class Patient extends Model<
+  InferAttributes<Patient>,
+  InferCreationAttributes<Patient>
+> {
+  declare id: CreationOptional<number>;
   declare name: string;
   declare cpf: string;
   declare birthDate: string;
-  declare gender: 'male' | 'female' | 'other';
+  declare gender: Gender;
   declare phone: string | null;
   declare email: string;
-  declare readonly createdAt: Date;
-  declare readonly updatedAt: Date;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }
 
 Patient.init(
@@ -25,6 +35,14 @@ Patient.init(
     },
     phone: { type: DataTypes.STRING, allowNull: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     sequelize,
