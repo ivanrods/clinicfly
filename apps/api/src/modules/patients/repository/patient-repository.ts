@@ -26,6 +26,13 @@ class PatientRepository {
     const deletedCount = await Patient.destroy({ where: { id } });
     return deletedCount > 0;
   }
+  async findPatientByCpf(cpf: string): Promise<Patient | null> {
+    return Patient.findOne({ where: { cpf } });
+  }
+
+  async findPatientByEmail(email: string): Promise<Patient | null> {
+    return Patient.findOne({ where: { email } });
+  }
 }
 
 export default PatientRepository;
