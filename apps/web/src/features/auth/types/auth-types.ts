@@ -1,8 +1,6 @@
-export interface AuthUser {
-  id: number;
-  name: string;
-  email: string;
-}
+import type { SessionUser } from '../../../shared/lib/token-storage';
+
+export type AuthUser = SessionUser;
 
 export interface LoginPayload {
   email: string;
