@@ -10,6 +10,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { getApiErrorMessage } from '../../../shared/api/errors';
+import { paths } from '../../../shared/routing/paths';
 import { useLogin } from '../hooks/use-login';
 import { loginSchema, type LoginFormValues } from '../schemas/auth-schema';
 
@@ -22,13 +23,13 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = (location.state ?? {}) as LocationState;
-  const { login } = useLogin();
+  const { login, isPending } = useLogin();
 
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
@@ -37,7 +38,7 @@ export default function LoginPage() {
   async function onSubmit(values: LoginFormValues) {
     try {
       await login(values);
-      navigate(state.from?.pathname ?? '/', { replace: true });
+      navigate(state.from?.pathname ?? paths.home, { replace: true });
     } catch (error) {
       setError('root', { message: getApiErrorMessage(error) });
     }
@@ -91,12 +92,12 @@ export default function LoginPage() {
           type="submit"
           variant="contained"
           size="large"
-          disabled={isSubmitting}
+          disabled={isPending}
         >
-          {isSubmitting ? 'Entrando...' : 'Entrar'}
+          {isPending ? 'Entrando...' : 'Entrar'}
         </Button>
 
-        <Button component={RouterLink} to="/register" variant="text">
+        <Button component={RouterLink} to={paths.register} variant="text">
           Criar conta
         </Button>
       </Stack>

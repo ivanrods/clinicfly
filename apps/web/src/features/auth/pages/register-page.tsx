@@ -10,6 +10,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { getApiErrorMessage } from '../../../shared/api/errors';
+import { paths } from '../../../shared/routing/paths';
 import { useRegister } from '../hooks/use-register';
 import {
   registerSchema,
@@ -18,13 +19,13 @@ import {
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const { registerAccount } = useRegister();
+  const { registerAccount, isPending } = useRegister();
 
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -38,7 +39,10 @@ export default function RegisterPage() {
   async function onSubmit(values: RegisterFormValues) {
     try {
       await registerAccount(values);
-      navigate('/login', { state: { registered: true }, replace: true });
+      navigate(paths.login, {
+        state: { registered: true },
+        replace: true,
+      });
     } catch (error) {
       setError('root', { message: getApiErrorMessage(error) });
     }
@@ -105,12 +109,12 @@ export default function RegisterPage() {
           type="submit"
           variant="contained"
           size="large"
-          disabled={isSubmitting}
+          disabled={isPending}
         >
-          {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
+          {isPending ? 'Cadastrando...' : 'Cadastrar'}
         </Button>
 
-        <Button component={RouterLink} to="/login" variant="text">
+        <Button component={RouterLink} to={paths.login} variant="text">
           Já tenho conta
         </Button>
       </Stack>
