@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { tokenStorage } from '../lib/token-storage';
+import { useAuth } from '../../features/auth/hooks/use-auth';
 import { paths } from './paths';
 
 export function PublicOnlyRoute() {
-  const token = tokenStorage.get();
+  const { isAuthenticated } = useAuth();
 
-  return token ? <Navigate to={paths.home} replace /> : <Outlet />;
+  return isAuthenticated ? <Navigate to={paths.home} replace /> : <Outlet />;
 }
