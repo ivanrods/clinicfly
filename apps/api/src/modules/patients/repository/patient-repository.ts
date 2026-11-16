@@ -7,6 +7,12 @@ class PatientRepository {
     return Patient.create(patientData);
   }
 
+  async findAllPatients(): Promise<Patient[]> {
+    return Patient.findAll({
+      order: [['name', 'ASC']],
+    });
+  }
+
   async findPatientById(id: number): Promise<Patient | null> {
     return Patient.findByPk(id);
   }

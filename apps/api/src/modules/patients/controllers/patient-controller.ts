@@ -18,7 +18,13 @@ class PatientController {
 
     return res.status(200).json(toPatientResponse(patient));
   }
+  async getAll(_req: Request, res: Response) {
+    const patients = await patientService.getAllPatients();
 
+    return res
+      .status(200)
+      .json(patients.map((patient) => toPatientResponse(patient)));
+  }
   async create(req: Request, res: Response) {
     const data = createPatientSchema.parse(req.body);
     const patient = await patientService.createPatient(data);

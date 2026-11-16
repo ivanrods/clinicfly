@@ -10,6 +10,9 @@ class PatientService {
   async getPatientById(patientId: number): Promise<Patient | null> {
     return this.patientRepository.findPatientById(patientId);
   }
+  async getAllPatients(): Promise<Patient[]> {
+    return this.patientRepository.findAllPatients();
+  }
 
   async createPatient(patientData: CreatePatientDTO): Promise<Patient> {
     const [cpfInUse, emailInUse] = await Promise.all([

@@ -6,6 +6,7 @@ const router = Router();
 
 router.use(authMiddleware);
 
+router.get('/', patientController.getAll);
 router.get('/:id', patientController.getById);
 router.post('/', patientController.create);
 router.patch('/:id', patientController.update);
