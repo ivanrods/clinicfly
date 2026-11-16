@@ -7,6 +7,7 @@ import { PublicOnlyRoute } from '../shared/routing/public-only-route';
 import { RouteErrorPage } from '../shared/routing/route-error-page';
 import { NotFoundPage } from '../pages/not-found-page';
 import HomePage from '../pages/home-page';
+import { patientRoutes } from '../features/patients';
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
             element: <AppLayout />,
             children: [
               { index: true, element: <HomePage /> },
-              // ...rotas de features entram aqui
+              ...patientRoutes,
             ],
           },
         ],

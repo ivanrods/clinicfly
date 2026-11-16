@@ -1,5 +1,5 @@
-//import type { RouteObject } from 'react-router-dom';
-/**
+import type { RouteObject } from 'react-router-dom';
+
 export const patientRoutes: RouteObject[] = [
   {
     path: 'patients',
@@ -16,4 +16,3 @@ export const patientRoutes: RouteObject[] = [
       })),
   },
 ];
- */

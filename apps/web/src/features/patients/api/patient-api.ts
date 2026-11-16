@@ -42,6 +42,10 @@ function normalizeUpdatePayload(
 }
 
 export const patientApi = {
+  async getAll(): Promise<Patient[]> {
+    const { data } = await api.get<Patient[]>('/patients');
+    return data;
+  },
   async getById(id: number): Promise<Patient> {
     const { data } = await api.get<Patient>(`/patients/${id}`);
     return data;

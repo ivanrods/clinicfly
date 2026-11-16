@@ -4,7 +4,7 @@ export const paths = {
   register: '/register',
   dashboard: '/dashboard',
   patients: '/patients',
-  patientDetails: (id: string) => `/patients/${id}`,
+  patientDetails: (id: string | number) => `/patients/${id}`,
 } as const;
 
 export type AppPath = (typeof paths)[keyof typeof paths];
