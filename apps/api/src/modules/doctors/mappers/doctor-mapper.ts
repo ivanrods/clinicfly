@@ -1,5 +1,5 @@
 import type Doctor from '../../../shared/database/models/doctor';
-import { DoctorResponseDTO } from '../dto/doctor-response-dto';
+import type { DoctorResponseDTO } from '../dto/doctor-response-dto';
 
 export function toDoctorResponse(doctor: Doctor): DoctorResponseDTO {
   return {
