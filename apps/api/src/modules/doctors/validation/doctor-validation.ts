@@ -22,7 +22,9 @@ export const updateDoctorSchema = createDoctorSchema
 
 export const doctorIdSchema = z.coerce.number().int().positive();
 
-export const listDoctorsQuerySchema = z
-  .enum(['true', 'false'])
-  .default('false')
-  .transform((value) => value === 'true');
+export const listDoctorsQuerySchema = z.object({
+  includeInactive: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((value) => value === 'true'),
+});
