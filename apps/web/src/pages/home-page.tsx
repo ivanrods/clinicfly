@@ -10,12 +10,16 @@ export default function HomePage() {
       </Typography>
 
       <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Área autenticada. Acesse o gerenciamento de pacientes.
+        Área autenticada. Acesse o gerenciamento de pacientes e médicos.
       </Typography>
 
       <Stack direction="row" spacing={2}>
         <Button component={RouterLink} to={paths.patients} variant="contained">
           Pacientes
+        </Button>
+
+        <Button component={RouterLink} to={paths.doctors} variant="outlined">
+          Médicos
         </Button>
       </Stack>
     </Box>

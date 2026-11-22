@@ -8,6 +8,7 @@ import { RouteErrorPage } from '../shared/routing/route-error-page';
 import { NotFoundPage } from '../pages/not-found-page';
 import HomePage from '../pages/home-page';
 import { patientRoutes } from '../features/patients';
+import { doctorRoutes } from '../features/doctors';
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <HomePage /> },
               ...patientRoutes,
+              ...doctorRoutes,
             ],
           },
         ],
