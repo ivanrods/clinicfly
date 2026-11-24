@@ -5,6 +5,8 @@ import authRoutes from './modules/auth/routes/auth-routes';
 import patientRoutes from './modules/patients/routes/patient-routes';
 import { errorMiddleware } from './shared/middlewares/error-middleware';
 import { doctorRoutes } from './modules/doctors';
+import { appointmentRoutes } from './modules/appointments';
+import './shared/database/models/associations';
 
 const app = express();
 app.use(express.json());
@@ -13,6 +15,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173' }));
 app.use(authRoutes);
 app.use('/patients', patientRoutes);
 app.use('/doctors', doctorRoutes);
+app.use('/appointments', appointmentRoutes);
 
 app.use(errorMiddleware);
 
