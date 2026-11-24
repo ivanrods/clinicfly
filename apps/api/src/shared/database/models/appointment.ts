@@ -6,7 +6,13 @@ import {
   InferCreationAttributes,
   Model,
 } from 'sequelize';
-import type { AppointmentStatus } from '../../../modules/appointments/dto/create-appointment-dto';
+import type { NonAttribute } from 'sequelize';
+import {
+  APPOINTMENT_STATUSES,
+  type AppointmentStatus,
+} from '../../../modules/appointments/dto/create-appointment-dto';
+import type Doctor from './doctor';
+import type Patient from './patient';
 
 class Appointment extends Model<
   InferAttributes<Appointment>,
@@ -21,6 +27,8 @@ class Appointment extends Model<
   declare status: CreationOptional<AppointmentStatus>;
   declare reason: string | null;
   declare notes: string | null;
+  declare patient?: NonAttribute<Patient>;
+  declare doctor?: NonAttribute<Doctor>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -46,7 +54,7 @@ Appointment.init(
     startTime: { type: DataTypes.TIME, allowNull: false },
     endTime: { type: DataTypes.TIME, allowNull: false },
     status: {
-      type: DataTypes.ENUM('scheduled', 'confirmed', 'completed', 'cancelled'),
+      type: DataTypes.ENUM(...APPOINTMENT_STATUSES),
       allowNull: false,
       defaultValue: 'scheduled',
     },
